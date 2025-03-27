@@ -291,7 +291,7 @@ export default function Chat({ isOpen, onClose, onRouteUpdate }: ChatProps) {
 
     // 2) Call your directions API (example)
     try {
-      const res = await fetch("http://localhost:8000/api/directions", {
+      const res = await fetch("https://polaris-backend-mauve.vercel.app/api/directions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: currentMessage }),
