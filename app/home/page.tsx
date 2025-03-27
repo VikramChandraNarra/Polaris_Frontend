@@ -272,7 +272,7 @@ export default function Home() {
     
         marker = new mapboxgl.Marker({ element: el }).setLngLat(coord);
       } else {
-        let color = index === waypointCoords.length - 1 ? "red" : "blue";
+        const color = index === waypointCoords.length - 1 ? "red" : "blue";
         marker = new mapboxgl.Marker({ color }).setLngLat(coord);
       }
     
@@ -282,34 +282,6 @@ export default function Home() {
     
   }, [waypointCoords]);
 
-  // Builds a Google Maps "Directions" link from our waypoints
-  const openGoogleMapsRoute = () => {
-    if (waypointCoords.length < 2) return;
-
-    // First waypoint is the origin
-    const [originLng, originLat] = waypointCoords[0];
-    // Last waypoint is the destination
-    const [destLng, destLat] = waypointCoords[waypointCoords.length - 1];
-
-    // Intermediate waypoints (everything between start and end)
-    const intermediateWaypoints = waypointCoords
-      .slice(1, waypointCoords.length - 1)
-      .map(([lng, lat]) => `${lat},${lng}`) // convert [lng, lat] -> "lat,lng"
-      .join("|");
-
-    // Construct the Google Maps Directions URL
-    // Note the correct lat,lng ordering for Google Maps
-    const gmUrl = new URL("https://www.google.com/maps/dir/");
-    gmUrl.searchParams.append("api", "1");
-    gmUrl.searchParams.append("origin", `${originLat},${originLng}`);
-    gmUrl.searchParams.append("destination", `${destLat},${destLng}`);
-    gmUrl.searchParams.append("travelmode", "driving");
-    if (intermediateWaypoints) {
-      gmUrl.searchParams.append("waypoints", intermediateWaypoints);
-    }
-
-    window.open(gmUrl.toString(), "_blank");
-  };
 
   return (
     <div className="w-screen h-screen relative bg-[#161616]">

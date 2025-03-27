@@ -65,52 +65,8 @@ interface ChatSession {
   responseIndices: number[]; // Track which messages have responses
 }
 
-// ----- Example Timeline component -----
-function Timeline({ data }: { data: TimelineEvent[] }) {
-  if (!data.length) return null;
 
-  return (
-    <div className="mt-2">
-      <h2 className="text-white font-bold mb-2">Instructions</h2>
-      <div className="space-y-2">
-        {data.map((event, index) => (
-          <div key={index} className="flex items-start gap-2">
-            <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5" />
-            <div>
-              <p className="text-sm text-gray-200">
-                <strong>{event.time}</strong> — {event.title}
-              </p>
-              <p className="text-xs text-gray-400">{event.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
-function LegTimeline({ legs }: { legs: LegInfo[] }) {
-  if (!legs.length) return null;
-
-  return (
-    <div className="mt-4">
-      <h2 className="text-white font-bold mb-2">Route Legs</h2>
-      <div className="space-y-2">
-        {legs.map((leg, index) => (
-          <div key={index} className="flex items-start gap-2">
-            <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5" />
-            <div>
-              {/* Leg heading: e.g. "Leg 1: 0.8 km, 2 mins" */}
-              <p className="text-sm text-gray-200 font-semibold">
-                Leg {index + 1}: {leg.distance}, {leg.duration}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 interface ChatProps {
   isOpen: boolean;
@@ -400,7 +356,7 @@ export default function Chat({ isOpen, onClose, onRouteUpdate }: ChatProps) {
     const [timePart, ampm] = timeStr.trim().split(" ");
     if (!timePart) return -1;
 
-    let [hourStr, minuteStr = "0"] = timePart.split(":");
+    const [hourStr, minuteStr = "0"] = timePart.split(":");
     let hour = parseInt(hourStr, 10);
     const minute = parseInt(minuteStr, 10);
 
